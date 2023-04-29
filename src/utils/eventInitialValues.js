@@ -1,5 +1,5 @@
 import moment from "moment/moment";
-
+// initial values for form validations.
 export const eventInitialValues = {
     title: '',
     category: 'work',

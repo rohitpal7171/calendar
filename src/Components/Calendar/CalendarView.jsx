@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { useNavigate} from "react-router-dom";
 import {calendarActions} from "../../store/calendarSlice";
 import moment from "moment/moment";
+import listPlugin from '@fullcalendar/list';
 
 function CalendarView() {
     const navigate = useNavigate()
@@ -19,7 +20,6 @@ function CalendarView() {
 
     const handleEventAdd = (item) =>{
         dispatch(calendarActions.changeDateClicked(moment(item.startStr).format('YYYY-MM-DDTHH:MM')))
-        dispatch(calendarActions.changeAddFormState(true))
         navigate('add-event')
     }
 
@@ -48,11 +48,11 @@ function CalendarView() {
     return (
         <Box style={{height: '100% !important'}}>
             <FullCalendar
-                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
                 headerToolbar={{
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
                 }}
                 initialView='dayGridMonth'
                 editable={false}

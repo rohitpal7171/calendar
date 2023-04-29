@@ -4,7 +4,6 @@ import moment from "moment";
 
 const initialState = {
     allEvents: defaultCalendarEvents,
-    openAddForm: false,
     categoryFilter: 'all',
     dateClicked : moment().format('YYYY-MM-DDTHH:MM'),
     event: {}
@@ -15,9 +14,6 @@ export const calendarSlice = createSlice({
     reducers: {
         addEvents: (state, action) => {
             state.allEvents = action.payload
-        },
-        changeAddFormState: (state, action) => {
-            state.openAddForm = action.payload
         },
         changeCategoryFilter: (state, action) => {
             state.categoryFilter = action.payload

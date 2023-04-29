@@ -50,7 +50,6 @@ function CalendarFilterSection () {
                         control={<Radio style={{ color:categoryColor.others }} />}
                         label={'Others'}
                     />
-
                 </RadioGroup>
             </FormControl>
         </Box>

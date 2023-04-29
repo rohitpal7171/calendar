@@ -14,6 +14,7 @@ function App() {
                 <Route path="event-view/:id" element={<CalendarDetail />}/>
                 <Route path="event-view/:id/edit" element={<CalendarAdd type={'update'}/>} />
             </Routes>
+           {/*Placed here to keep this module in base location */}
            <CalendarMaster/>
        </SnackbarProvider>
    </Fragment>
