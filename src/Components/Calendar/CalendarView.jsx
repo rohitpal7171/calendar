@@ -13,7 +13,9 @@ function CalendarView() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const theme = useTheme()
-    const {events} = useSelector(state => state.calendar)
+    const {allEvents,categoryFilter} = useSelector(state => state.calendar)
+
+    const filteredEvents = categoryFilter === "all" ? allEvents : allEvents.filter(item => item.category === categoryFilter)
 
     const handleEventAdd = (item) =>{
         dispatch(calendarActions.changeDateClicked(moment(item.startStr).format('YYYY-MM-DDTHH:MM')))
@@ -53,7 +55,7 @@ function CalendarView() {
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 }}
                 initialView='dayGridMonth'
-                editable={true}
+                editable={false}
                 selectable={true}
                 selectMirror={true}
                 dayMaxEvents={true}
@@ -61,10 +63,15 @@ function CalendarView() {
                 nowIndicator={true}
                 dayMaxEventRows={3}
                 contentHeight={'90vh'}
-                events={events}
+                events={filteredEvents}
                 eventClick={handleEventClick}
                 select={handleEventAdd}
                 dayCellContent={dayCellContent}
+                eventTimeFormat={{
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    meridiem: true
+                }}
             />
         </Box>
     )

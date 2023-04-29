@@ -26,16 +26,16 @@ export default function CalendarDetail() {
     const {id} = useParams()
     const [open, setOpen] = useState(true);
     const [loading,setLoading] = useState(true)
-    const {events,event} = useSelector(state => state.calendar)
+    const {allEvents,event} = useSelector(state => state.calendar)
     const { enqueueSnackbar } = useSnackbar();
 
     useEffect(()=>{
-        const event = events.find(item => String(item.id )===String(window.atob(id)))
+        const event = allEvents.find(item => String(item.id )===String(window.atob(id)))
         dispatch(calendarActions.getSingleEvent(event))
         return()=>{
             dispatch(calendarActions.getSingleEvent({}))
         }
-    },[id,dispatch])
+    },[id,dispatch,allEvents])
 
     useEffect(()=>{
         if(event.id) setLoading(false)
@@ -51,7 +51,7 @@ export default function CalendarDetail() {
     }
 
     const handleDelete = () =>{
-        const restEvents = events.filter(item => String(item.id)!== String(event.id))
+        const restEvents = allEvents.filter(item => String(item.id)!== String(event.id))
         dispatch(calendarActions.addEvents(restEvents))
         enqueueSnackbar('Event deleted successfully!', { variant:'success' });
         navigate('../')
@@ -110,7 +110,7 @@ export default function CalendarDetail() {
                         }
                     </DialogContentText>
                 </DialogContent>
-                <DialogActions style={{display:"flex",justifyContent:'space-between'}}>
+                <DialogActions style={{display:"flex",justifyContent:'space-between',padding:'0px 20px 20px 20px'}}>
                     <Button variant={'outlined'} onClick={handleEdit}>Edit</Button>
                     <Button variant={'outlined'} onClick={handleDelete}>Delete</Button>
                 </DialogActions>

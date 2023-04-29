@@ -13,7 +13,6 @@ function App() {
                 <Route path="/add-event" element={<CalendarAdd/>} />
                 <Route path="event-view/:id" element={<CalendarDetail />}/>
                 <Route path="event-view/:id/edit" element={<CalendarAdd type={'update'}/>} />
-                {/*<Route path="*" element={<PageNotFound />} />*/}
             </Routes>
            <CalendarMaster/>
        </SnackbarProvider>

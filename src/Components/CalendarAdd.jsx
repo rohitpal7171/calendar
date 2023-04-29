@@ -11,7 +11,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {calendarActions} from "../store/calendarSlice";
 import {Box, FormControl, Grid, InputLabel, MenuItem, Select, TextField} from "@mui/material";
-import {eventCategory} from "../utils/eventCategory";
+import {categoryColor, eventCategory} from "../utils/eventCategory";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {DemoContainer} from "@mui/x-date-pickers/internals/demo";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
@@ -66,11 +66,11 @@ function CalendarAdd() {
     const dispatch = useDispatch()
     const {id} = useParams()
     const { enqueueSnackbar } = useSnackbar();
-    const {events,dateClicked} = useSelector(state => state.calendar)
+    const {allEvents,dateClicked} = useSelector(state => state.calendar)
     const [open,setOpen] = useState(true)
 
     // This id check needed because we are using this component for event add as well as event update.
-    const eventToBeUpdate = id ? events.find(item => String(item.id) === window.atob(id)) || {} : {}
+    const eventToBeUpdate = id ? allEvents.find(item => String(item.id) === window.atob(id)) || {} : {}
     const handleClose = () => {
         setOpen(false)
         navigate(-1)
@@ -89,12 +89,13 @@ function CalendarAdd() {
         onSubmit: (values,actions) => {
             const tempObject = {
                 ...values,
-                id : !id? events.length+1 : eventToBeUpdate.id,
+                color : categoryColor[values.category],
+                id : !id? allEvents.length+1 : eventToBeUpdate.id,
             }
             if(!id){
-                dispatch(calendarActions.addEvents([...events,tempObject]))
+                dispatch(calendarActions.addEvents([...allEvents,tempObject]))
             }else{
-                const restEvents = events.filter(item => String(item.id) !== window.atob(id))
+                const restEvents = allEvents.filter(item => String(item.id) !== window.atob(id))
                 dispatch(calendarActions.addEvents([...restEvents,tempObject]))
                 dispatch(calendarActions.getSingleEvent(tempObject))
             }
