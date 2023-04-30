@@ -63,7 +63,7 @@ function CalendarView() {
                 weekends={true}
                 nowIndicator={true}
                 dayMaxEventRows={2}
-                contentHeight={'82vh'}
+                contentHeight={'80vh'}
                 events={filteredEvents}
                 eventClick={handleEventClick}
                 select={handleEventAdd}
