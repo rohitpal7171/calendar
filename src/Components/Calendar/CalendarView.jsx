@@ -9,6 +9,7 @@ import { useNavigate} from "react-router-dom";
 import {calendarActions} from "../../store/calendarSlice";
 import moment from "moment/moment";
 import listPlugin from '@fullcalendar/list';
+import './Calendar.css'
 
 function CalendarView() {
     const navigate = useNavigate()
@@ -61,7 +62,7 @@ function CalendarView() {
                 dayMaxEvents={true}
                 weekends={true}
                 nowIndicator={true}
-                dayMaxEventRows={3}
+                dayMaxEventRows={2}
                 contentHeight={'90vh'}
                 events={filteredEvents}
                 eventClick={handleEventClick}
