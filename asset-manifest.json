@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/calendar/static/css/main.4fd9b555.css",
-    "main.js": "/calendar/static/js/main.ddaa5066.js",
+    "main.js": "/calendar/static/js/main.4ce3417c.js",
     "index.html": "/calendar/index.html",
     "main.4fd9b555.css.map": "/calendar/static/css/main.4fd9b555.css.map",
-    "main.ddaa5066.js.map": "/calendar/static/js/main.ddaa5066.js.map"
+    "main.4ce3417c.js.map": "/calendar/static/js/main.4ce3417c.js.map"
   },
   "entrypoints": [
     "static/css/main.4fd9b555.css",
-    "static/js/main.ddaa5066.js"
+    "static/js/main.4ce3417c.js"
   ]
 }
