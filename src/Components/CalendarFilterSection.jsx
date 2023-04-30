@@ -1,57 +1,65 @@
-import {Box, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography} from "@mui/material";
+import {
+    Box,
+    FormControl,
+    MenuItem,
+    Select,
+    Typography, useMediaQuery, useTheme
+} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {calendarActions} from "../store/calendarSlice";
-import {categoryColor} from "../utils/eventCategory";
+import {categoryColor, eventCategory} from "../utils/eventCategory";
+import Button from "@mui/material/Button";
+import {RestartAltOutlined} from "@mui/icons-material";
 
-function CalendarFilterSection () {
+function CalendarFilterSection() {
+    const {breakpoints} = useTheme()
+    const mobileView = useMediaQuery(breakpoints.down('sm'))
     const dispatch = useDispatch()
     const {categoryFilter} = useSelector(state => state.calendar)
-    const handleChange =(event)=>{
+    const handleChange = (event) => {
         dispatch(calendarActions.changeCategoryFilter(event.target.value))
     }
+    const handleReset = () => {
+        dispatch(calendarActions.changeCategoryFilter('all'))
+    }
 
-    return(
-        <Box style={{borderRight:'1px solid lightGrey',height:'100%',marginRight:'20px'}}>
-            <FormControl component="fieldset">
-                <FormLabel component="legend">
-                    {' '}
-                    <Typography variant={'subtitle1'}>
-                       Select Category
-                    </Typography>
-                </FormLabel>
-                <RadioGroup
-                    aria-label="categoryFilterGroup"
-                    name="categoryFilterGroup"
+    return (
+        <Box py={1} mb={1} display={'flex'} alignItems={'center'} justifyContent={'space-between'}
+             sx={{
+                 borderBottom: '1px solid lightGrey',
+                 '& button': {p: 1}}}>
+            {!mobileView && <Box>
+                <Typography variant={'h6'} color={''}>Lets learn more about Calendar</Typography>
+            </Box>}
+            <Box display={'flex'} alignItems={'center'}>
+            <Typography variant={'subtitle1'} color={'textSecondary'}>Category:</Typography>&emsp;
+            <FormControl size={'small'} sx={{width: 110}}>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
                     value={categoryFilter}
                     onChange={handleChange}
                 >
-                    <FormControlLabel
-                        value="all"
-                        control={<Radio/>}
-                        label={'All' }
-                    />
-                    <FormControlLabel
-                        value="work"
-                        control={<Radio style={{ color: categoryColor.work }} />}
-                        label={'Work'}
-                    />
-                    <FormControlLabel
-                        value="personal"
-                        control={<Radio style={{ color:categoryColor.personal }} />}
-                        label={'Personal'}
-                    />
-                    <FormControlLabel
-                        value="social"
-                        control={<Radio style={{ color: categoryColor.social }} />}
-                        label={'Social'}
-                    />
-                    <FormControlLabel
-                        value="others"
-                        control={<Radio style={{ color:categoryColor.others }} />}
-                        label={'Others'}
-                    />
-                </RadioGroup>
-            </FormControl>
+                    <MenuItem value={'all'}>All</MenuItem>
+                    {Object.keys(eventCategory).map(item => (
+                        <MenuItem value={item}>
+                            <Typography sx={{color: categoryColor[item]}}>{item}</Typography>
+                        </MenuItem>
+                    ))}
+                </Select>
+            </FormControl>&emsp;
+            <Button
+                startIcon={<RestartAltOutlined/>}
+                onClick={handleReset}
+                variant={'contained'}
+                disableElevation
+                size={'small'}
+                disabled={categoryFilter==='all'}
+                sx={{backgroundColor: 'deepskyblue', textTransform: 'inherit'}}
+            >
+                Reset
+            </Button>
+            </Box>
         </Box>
     )
 }
